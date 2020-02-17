@@ -88,7 +88,7 @@ class Graph:
                 for neighbor in self.get_neighbors(v):
                     s.push(neighbor)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=set()):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -97,11 +97,20 @@ class Graph:
         """
         # TODO
         # Check if the node is visited
+        if starting_vertex in visited:
+            return "This node has already been visited"
         # Hint: https://docs.python-guide.org/writing/gotchas/
         # If not...
+        else:
+            print(starting_vertex)
             # Mark it as visited
+            visited.add(starting_vertex)
             # Print
+            print(visited)
             # Call DFT_Recursive on each child
+            for child in self.get_neighbors(starting_vertex):
+                if child not in visited:
+                    self.dft_recursive(child, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
