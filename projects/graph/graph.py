@@ -159,15 +159,15 @@ class Graph:
         depth-first order.
         """
         # TODO
-        # Create an empty queue
+        # Create an empty stack
         s = Stack()
-        # Add A PATH TO the starting vertex_id to the queue
+        # Add A PATH TO the starting vertex_id to the stack
         s.push([starting_vertex])
         # Create an empty set to store visited nodes
         visited = set()
-        # While the queue is not empty...
+        # While the stack is not empty...
         while s.size() > 0:
-            # Dequeue, the first PATH
+            # pop, the first PATH
             v = s.pop()
             # GRAB THE LAST VERTEX FROM THE PATH
             v_last = v[-1]
@@ -192,7 +192,7 @@ class Graph:
                     else:
                         s.push(v_copy)
 
-    def dfs_recursive(self, starting_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=set()):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -200,7 +200,23 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # TODO
+        # Check if the node is visited
+        if starting_vertex == destination_vertex:
+            return [destination_vertex]
+        # Hint: https://docs.python-guide.org/writing/gotchas/
+        # If not...
+        elif starting_vertex not in visited:
+            print(starting_vertex)
+            # Mark it as visited
+            visited.add(starting_vertex)
+            # Print
+            print(visited)
+            # Call DFS_Recursive on each child
+            for child in self.get_neighbors(starting_vertex):
+                temp = self.dfs_recursive(child, destination_vertex, visited)
+                if temp != None:
+                    return [starting_vertex] + temp
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
